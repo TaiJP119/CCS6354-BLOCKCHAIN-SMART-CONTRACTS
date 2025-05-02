@@ -78,7 +78,7 @@
 		"compilationTarget": {
 			"funding.sol": "Funding"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "istanbul",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"

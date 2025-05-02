@@ -60,7 +60,7 @@
 		"compilationTarget": {
 			"helloworld.sol": "HelloWorld"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "istanbul",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
