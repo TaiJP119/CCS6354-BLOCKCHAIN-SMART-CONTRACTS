@@ -28,7 +28,7 @@
 		"compilationTarget": {
 			"contracts/recmoney.sol": "ReceiveMoneyContract"
 		},
-		"evmVersion": "istanbul",
+		"evmVersion": "cancun",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
