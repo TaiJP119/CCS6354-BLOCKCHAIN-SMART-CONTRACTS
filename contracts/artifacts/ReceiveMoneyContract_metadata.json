@@ -1,0 +1,53 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "receivemoney",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/recmoney.sol": "ReceiveMoneyContract"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/recmoney.sol": {
+			"keccak256": "0x60d36e41d86177933f6cb00a5e9ea91590e8bae961a4b6e4399e211696d9733c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9b4e5b368f1764e030c7eb844ff907f564088c914b544c6fb564cfb30d98641a",
+				"dweb:/ipfs/QmV584hLVER6D5dS5NoGB4cyd8v2zKkm7AVNBNzQVn3G8A"
+			]
+		}
+	},
+	"version": 1
+}
