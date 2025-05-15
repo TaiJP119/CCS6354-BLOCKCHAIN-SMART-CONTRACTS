@@ -49,10 +49,16 @@ contract SimpleContract {
         payable(msg.sender).transfer(_amount);
     }
 
+    // 1. press 'owner' button
+    // 2. use the owner account, try the button 'setCount'>'count'>'resetCount', count should be '0'
+    // 3. use another account, can change the account at "ACCOUNT", try the button 'setCount'{appear error}>'count'{still remain the sam}>'resetCount{appear error}', count wont be changed
     // Add a resetCount() function that only the owner can call.
     function resetCount() public onlyOwner{
         count = 0;
     }
+    // 1. 'Deposit' some amount to the owner
+    // 2. Try 'TRANSFERBETWEEN', Use owner account transfer money to the another account
+    // 3. Try 'check Balance' of the another account and also owner account.
     // Implement transferBetween(address to, uint amount) so users can send deposits to each other without withdrawing.
     function transferBetween(address to, uint amount) public {
         require(balances[msg.sender] >= amount, "Insufficient balance to transfer");
