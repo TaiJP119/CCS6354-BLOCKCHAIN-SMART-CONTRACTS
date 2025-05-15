@@ -95,6 +95,13 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "resetCount",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -103,6 +110,24 @@
 					}
 				],
 				"name": "setCount",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "transferBetween",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -166,11 +191,11 @@
 	},
 	"sources": {
 		"MyFirstContract.sol": {
-			"keccak256": "0x08df04bfcd8c42d177b1f20278bac08ec32cb06c261a35a0fad44e0131552a37",
+			"keccak256": "0x4100a3467dcd404182c599a740fd06eeccc19d735904e9b401944a9adb8bb88e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://77c2d51e1e1c514044abdbf9be5476358caed6c107f04c83efa3d2aa3d046b0e",
-				"dweb:/ipfs/QmdzNvRseePwc8EFZW3BfE2QDNZj9Vxxg8VZgtrfSPNgts"
+				"bzz-raw://7a33f453d8a01243882be645937333ace6fb6e48cec2142f6ad35019ef9b9784",
+				"dweb:/ipfs/QmSEfwCCVG8Pf1KGn2Uaxvx1j7kQRXUU2DsepMaaQNHBmB"
 			]
 		}
 	},

@@ -48,5 +48,18 @@ contract SimpleContract {
         balances[msg.sender] -= _amount;
         payable(msg.sender).transfer(_amount);
     }
+
+    // Add a resetCount() function that only the owner can call.
+    function resetCount() public onlyOwner{
+        count = 0;
+    }
+
+    function transferBetween(address to, uint amount) public {
+        require(balances[msg.sender] >= amount, "Insufficient balance to transfer");
+        require(to != address(0), "Invalid recipient address");
+        balances[msg.sender] -= amount;
+        balances[to] += amount;
+    }
+
 }
  
