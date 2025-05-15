@@ -53,7 +53,7 @@ contract SimpleContract {
     function resetCount() public onlyOwner{
         count = 0;
     }
-
+    // Implement transferBetween(address to, uint amount) so users can send deposits to each other without withdrawing.
     function transferBetween(address to, uint amount) public {
         require(balances[msg.sender] >= amount, "Insufficient balance to transfer");
         require(to != address(0), "Invalid recipient address");
