@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaMask DApp</title>
+</head>
+
+<body>
+    <h1>MetaMask Connection Demo</h1>
+    <button id="connectButton">Connect MetaMask</button>
+    <p id="accountDisplay">Not connected</p>
+    <hr>
+    <h3>Interact with Smart Contract</h3>
+    <div>
+        <h4>Current Message: <span id="message">N/A</span></h4>
+        <input type="text" id="newMessage" placeholder="Enter new message">
+        <button id="setMessageButton">Set Message</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

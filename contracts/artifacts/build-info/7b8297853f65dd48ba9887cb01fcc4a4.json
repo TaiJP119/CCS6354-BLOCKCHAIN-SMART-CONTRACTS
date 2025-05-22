@@ -1,5 +1,5 @@
 {
-	"id": "420962ee75a4d40d740edc683d4484ab",
+	"id": "7b8297853f65dd48ba9887cb01fcc4a4",
 	"_format": "hh-sol-build-info-1",
 	"solcVersion": "0.8.0",
 	"solcLongVersion": "0.8.0+commit.c7dfd78e",
@@ -35,7 +35,8 @@
 					]
 				}
 			},
-			"remappings": []
+			"remappings": [],
+			"evmVersion": "istanbul"
 		}
 	},
 	"output": {
