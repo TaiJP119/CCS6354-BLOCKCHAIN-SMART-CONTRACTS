@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crowdfunding DApp</title>
+</head>
+<body>
+    <h1>Crowdfunding Smart Contract</h1>
+    <button id="connectButton">Connect MetaMask</button>
+    <p id="accountDisplay">Not connected</p>
+
+    <h3>Contract Info</h3>
+    <p>Goal: <span id="goal">N/A</span></p>
+    <p>Raised: <span id="raised">N/A</span></p>
+    <p>Deadline: <span id="deadline">N/A</span></p>
+    <p>Contributors: <span id="contributors">N/A</span></p>
+    <p id="deadlineInfo"></p>
+    <button id="mineBlockButton">Mine Block (for testing only)</button>
+
+
+    <h3>Contribute</h3>
+    <input type="number" id="contributionAmount" placeholder="Amount in Wei">
+    <button id="contributeButton">Contribute</button>
+
+    <h3>Refund</h3>
+    <button id="refundButton">Request Refund</button>
+
+    <h3>Owner Panel</h3>
+    <button id="withdrawButton">Withdraw Funds</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

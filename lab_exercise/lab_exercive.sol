@@ -38,7 +38,7 @@ contract CrowdFund {
     }
 
     function contribute() public payable beforeDeadline {
-        require(msg.value >= 0.01 ether, "Minimum contribution is 0.01 ETH");
+        require(msg.value >= 1 wei, "Minimum contribution is 0.000000000000000001 ETH");
 
         if (contributions[msg.sender] == 0) {
             contributorCount++;
@@ -66,7 +66,6 @@ contract CrowdFund {
         withdrawn = true;
         payable(owner).transfer(address(this).balance);
     }
-
     function refund() public afterDeadline {
         require(!goalReached, "Goal was reached, refund not possible");
         require(contributions[msg.sender] > 0, "No contributions found");
@@ -77,6 +76,7 @@ contract CrowdFund {
 
         emit Refunded(msg.sender, refundAmount);
     }
+
 
     function getDetails() public view returns (
         uint _goal,
