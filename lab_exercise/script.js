@@ -1,4 +1,4 @@
-const contractAddress = "-deployed-address";
+const contractAddress = "0xc2725095bCC3bEFb681Fe4FB07C28E36EA7CADA0";
 const contractABI = [
 	{
 		"inputs": [
@@ -277,18 +277,39 @@ async function loadContractInfo() {
     document.getElementById("deadline").innerText = new Date(deadline * 1000).toLocaleString();
     document.getElementById("contributors").innerText = contributors;
 
-    // Add this for seconds left
+    // Deadline countdown
     const now = Math.floor(Date.now() / 1000);
     const secondsRemaining = deadline - now;
-    let timeLeftText;
+    let timeLeftText = "";
     if (secondsRemaining > 0) {
-        timeLeftText = `${secondsRemaining} seconds left until deadline.`;
+        // Format as hh:mm:ss
+        const h = Math.floor(secondsRemaining / 3600);
+        const m = Math.floor((secondsRemaining % 3600) / 60);
+        const s = secondsRemaining % 60;
+        timeLeftText = `Time left: ${h}h ${m}m ${s}s`;
     } else {
-        timeLeftText = `Deadline passed! Refund (if eligible) is now possible.`;
+        timeLeftText = `<span class="highlight">Deadline passed!</span> Refund or withdrawal possible.`;
     }
-    // You can create an element in your HTML for this, e.g. <p id="deadlineInfo"></p>
-    document.getElementById("deadlineInfo").innerText = timeLeftText;
+    document.getElementById("timeLeft").innerHTML = timeLeftText;
 
+    // Show connected user's contribution
+    if (signer && contract) {
+        const userAddress = await signer.getAddress();
+        const userContribution = await contract.contributions(userAddress);
+        if (userContribution.gt(0)) {
+            document.getElementById("userContribution").innerText =
+                `Your Contribution: ${ethers.utils.formatEther(userContribution)} ETH`;
+        } else {
+            document.getElementById("userContribution").innerText = "";
+        }
+        // Show owner badge
+        const ownerAddr = await contract.owner();
+        if (userAddress.toLowerCase() === ownerAddr.toLowerCase()) {
+            document.getElementById("ownerBadge").style.display = "inline-block";
+        } else {
+            document.getElementById("ownerBadge").style.display = "none";
+        }
+    }
     if (signer && contract) await updateButtonStates();
 }
 
@@ -324,12 +345,12 @@ async function refund() {
     }
 }
 
-async function mineBlockForTesting() {
-await network.provider.send("evm_increaseTime", [300]); // 5 minutes
-await network.provider.send("evm_mine");
-  alert("Mined 1 block and advanced time for testing.");
-  loadContractInfo();
-}
+// async function mineBlockForTesting() {
+// await network.provider.send("evm_increaseTime", [300]); // 5 minutes
+// await network.provider.send("evm_mine");
+//   alert("Mined 1 block to check time");
+//   loadContractInfo();
+// }
 
 
 
@@ -371,4 +392,4 @@ document.getElementById("connectButton").onclick = connectMetaMask;
 document.getElementById("contributeButton").onclick = contribute;
 document.getElementById("refundButton").onclick = refund;
 document.getElementById("withdrawButton").onclick = withdraw;
-document.getElementById("mineBlockButton").onclick = mineBlockForTesting;
+// document.getElementById("mineBlockButton").onclick = mineBlockForTesting;

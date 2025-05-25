@@ -3,30 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <title>Crowdfunding DApp</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f2f2f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 480px;
+            background: #fff;
+            margin: 32px auto;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+            padding: 32px 28px 24px 28px;
+        }
+        h1 {
+            margin-bottom: 18px;
+            font-size: 2rem;
+            letter-spacing: -1px;
+        }
+        #accountDisplay {
+            background: #f4ece1;
+            color: #76552b;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.98rem;
+            display: inline-block;
+        }
+        .owner-badge {
+            background: #8C52FF;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 8px;
+            margin-left: 10px;
+            font-size: 0.9rem;
+        }
+        .card {
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(80,45,0,0.06);
+            padding: 20px 18px;
+            margin-bottom: 16px;
+            background: #f9f6f1;
+        }
+        .info-label {
+            color: #8C52FF;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .info-value {
+            font-weight: bold;
+            font-size: 1.09rem;
+        }
+        .highlight {
+            color: #e04848;
+            font-weight: 700;
+        }
+        #timeLeft {
+            font-size: 1.1rem;
+            margin: 8px 0;
+            font-weight: 500;
+        }
+        #userContribution {
+            color: #5c8f4f;
+            font-size: 1.02rem;
+            margin-top: 6px;
+        }
+        input, button {
+            font-size: 1rem;
+            border-radius: 8px;
+            outline: none;
+        }
+        input[type=number] {
+            width: 150px;
+            padding: 7px 8px;
+            border: 1px solid #c9c9c9;
+            margin-right: 10px;
+            background: #fafafa;
+            transition: border 0.2s;
+        }
+        input[type=number]:focus {
+            border: 1.5px solid #8C52FF;
+        }
+        button {
+            padding: 8px 20px;
+            border: none;
+            background: #8C52FF;
+            color: #fff;
+            font-weight: 600;
+            margin-top: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(140,82,255,0.07);
+            transition: background 0.2s;
+        }
+        button:disabled {
+            background: #ddd;
+            color: #aaa;
+            cursor: not-allowed;
+        }
+        .actions {
+            margin-bottom: 16px;
+        }
+        .panel-title {
+            color: #8C52FF;
+            font-weight: 700;
+            font-size: 1.08rem;
+            margin-top: 18px;
+        }
+        .fine-print {
+            color: #aaa;
+            font-size: 0.91rem;
+        }
+        #mineBlockButton {
+            background: #fecc2f;
+            color: #7b5a00;
+            margin-left: 10px;
+        }
+        @media (max-width: 520px) {
+            .container {
+                padding: 18px 4vw 10vw 4vw;
+                margin: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Crowdfunding Smart Contract</h1>
-    <button id="connectButton">Connect MetaMask</button>
-    <p id="accountDisplay">Not connected</p>
+    <div class="container">
+        <h1>Tokenized Crowdfunding Smart Contract with UI </h1>
+        <button id="connectButton">Connect MetaMask</button>
+        <span id="accountDisplay">Not connected</span>
+        <span id="ownerBadge" class="owner-badge" style="display:none">You are the Owner</span>
 
-    <h3>Contract Info</h3>
-    <p>Goal: <span id="goal">N/A</span></p>
-    <p>Raised: <span id="raised">N/A</span></p>
-    <p>Deadline: <span id="deadline">N/A</span></p>
-    <p>Contributors: <span id="contributors">N/A</span></p>
-    <p id="deadlineInfo"></p>
-    <button id="mineBlockButton">Mine Block (for testing only)</button>
+        <div class="card">
+            <div><span class="info-label">Goal:</span> <span class="info-value" id="goal">N/A</span></div>
+            <div><span class="info-label">Raised:</span> <span class="info-value" id="raised">N/A</span></div>
+            <div><span class="info-label">Contributors:</span> <span class="info-value" id="contributors">N/A</span></div>
+            <div><span class="info-label">Deadline:</span> <span class="info-value" id="deadline">N/A</span></div>
+            <div id="timeLeft"></div>
+            <div id="userContribution"></div>
+        </div>
 
+        <!-- <button id="mineBlockButton">Mine Block for check time</button>
+        <span class="fine-print">(For Ganache/Hardhat testing only)</span> -->
 
-    <h3>Contribute</h3>
-    <input type="number" id="contributionAmount" placeholder="Amount in Wei">
-    <button id="contributeButton">Contribute</button>
+        <div class="actions">
+            <div class="panel-title">Contribute</div>
+            <input type="number" id="contributionAmount" placeholder="Amount in Wei" min="1">
+            <button id="contributeButton">Contribute</button>
+        </div>
 
-    <h3>Refund</h3>
-    <button id="refundButton">Request Refund</button>
+        <div class="actions">
+            <div class="panel-title">Refund</div>
+            <button id="refundButton">Request Refund</button>
+        </div>
 
-    <h3>Owner Panel</h3>
-    <button id="withdrawButton">Withdraw Funds</button>
+        <div class="actions">
+            <div class="panel-title">Owner Panel</div>
+            <button id="withdrawButton">Withdraw Funds</button>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     <script src="script.js"></script>
