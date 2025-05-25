@@ -37,13 +37,13 @@ contract CrowdFund {
 
     constructor(uint _goal, uint _durationMinutes) {
         owner = msg.sender; //Sets the creator as the owner. 
-        goal = _goal; //Sets the fundraising goal
+        goal = _goal * 1 ether; //Sets the fundraising goal
         deadline = block.timestamp + (_durationMinutes * 1 minutes); // deadline ( current time + how many minutes assigned). 
     }
 
     function contribute() public payable beforeDeadline {
         //set the minimum contributiton (at least 1 Wei )
-        require(msg.value >= 1 wei, "Minimum contribution is 0.000000000000000001 ETH");
+        require(msg.value >= 1 ether, "Minimum contribution is 1 ETH");
         // new contributor, the counter goes up.
         if (contributions[msg.sender] == 0) {
             contributorCount++;
