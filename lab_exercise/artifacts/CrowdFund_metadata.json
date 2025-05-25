@@ -283,11 +283,11 @@
 	},
 	"sources": {
 		"lab_exercise/lab_exercive.sol": {
-			"keccak256": "0xb7b647eed74eb01fa264211fd888291cc56a21cf8e87bb09e612f8f48e5eecd9",
+			"keccak256": "0x1afd3b79141f50de7725eb2742a1f5f738f0bd036b27780460efe446803aae10",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9edfa4fce4a39267d983f08c7cec3f1cd320adfc34ea33edc2c2f1f92eb69346",
-				"dweb:/ipfs/QmUjCkQKu1BCKkvL35LPEefVNtaUQ4j29kuDm6oCP9bd6S"
+				"bzz-raw://f6e317695d73e21f176c088a1ada43e51ed41f168d11ca53238e6dd131ecabc6",
+				"dweb:/ipfs/Qmf3Fe99nne4to2aijgZPuVGZZ7aS6zXosoBsW6j8EEGHn"
 			]
 		}
 	},
