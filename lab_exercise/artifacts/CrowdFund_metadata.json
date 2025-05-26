@@ -270,7 +270,7 @@
 		"compilationTarget": {
 			"lab_exercise/lab_exercive.sol": "CrowdFund"
 		},
-		"evmVersion": "istanbul",
+		"evmVersion": "cancun",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"

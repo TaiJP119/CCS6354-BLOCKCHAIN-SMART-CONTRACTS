@@ -1,5 +1,12 @@
-const contractAddress = "0xc2725095bCC3bEFb681Fe4FB07C28E36EA7CADA0";
-const contractABI = [
+const contractAddress = "deployed-contract-address";
+const contractABI =[
+	{
+		"inputs": [],
+		"name": "contribute",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
 	{
 		"inputs": [
 			{
@@ -49,6 +56,13 @@ const contractABI = [
 		"type": "event"
 	},
 	{
+		"inputs": [],
+		"name": "refund",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -69,6 +83,13 @@ const contractABI = [
 	},
 	{
 		"inputs": [],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "checkBalance",
 		"outputs": [
 			{
@@ -78,13 +99,6 @@ const contractABI = [
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "contribute",
-		"outputs": [],
-		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -224,20 +238,6 @@ const contractABI = [
 	},
 	{
 		"inputs": [],
-		"name": "refund",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "withdraw",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "withdrawn",
 		"outputs": [
 			{
@@ -271,26 +271,31 @@ async function connectMetaMask() {
 
 
 async function loadContractInfo() {
-    const [goal, deadline, raised, contributors] = await contract.getDetails();
+    const [goal, deadline, raised, contributors, goalReached, withdrawn] = await contract.getDetails();
     document.getElementById("goal").innerText = `${ethers.utils.formatEther(goal)} ETH`;
     document.getElementById("raised").innerText = `${ethers.utils.formatEther(raised)} ETH`;
     document.getElementById("deadline").innerText = new Date(deadline * 1000).toLocaleString();
     document.getElementById("contributors").innerText = contributors;
 
-    // Deadline countdown
+    // Deadline and contract status
     const now = Math.floor(Date.now() / 1000);
     const secondsRemaining = deadline - now;
-    let timeLeftText = "";
+    let statusHtml = "";
+
     if (secondsRemaining > 0) {
-        // Format as hh:mm:ss
+        // Format countdown as hh:mm:ss
         const h = Math.floor(secondsRemaining / 3600);
         const m = Math.floor((secondsRemaining % 3600) / 60);
         const s = secondsRemaining % 60;
-        timeLeftText = `Time left: ${h}h ${m}m ${s}s`;
+        statusHtml = `⏳ Time left: ${h}h ${m}m ${s}s`;
     } else {
-        timeLeftText = `<span class="highlight">Deadline passed!</span> Refund or withdrawal possible.`;
+        if (goalReached) {
+            statusHtml = `<span class="highlight">Deadline passed! Goal met – Owner can withdraw funds.</span>`;
+        } else {
+            statusHtml = `<span class="highlight">Deadline passed! Goal not met – Refund available for contributors.</span>`;
+        }
     }
-    document.getElementById("timeLeft").innerHTML = timeLeftText;
+    document.getElementById("timeLeft").innerHTML = statusHtml;
 
     // Show connected user's contribution
     if (signer && contract) {
@@ -313,16 +318,20 @@ async function loadContractInfo() {
     if (signer && contract) await updateButtonStates();
 }
 
-async function contribute() {
-    const amountWei = document.getElementById("contributionAmount").value;
-    if (!amountWei || isNaN(amountWei)) return alert("Enter valid amount");
 
-    // Make sure you pass the value as a string or BigNumber
-    const tx = await contract.contribute({ value: amountWei.toString() });
+async function contribute() {
+    const amountEth = document.getElementById("contributionAmount").value;
+    if (!amountEth || isNaN(amountEth)) return alert("Enter a valid amount in ETH");
+
+    // Convert ETH input to Wei before sending
+    const amountWei = ethers.utils.parseEther(amountEth.toString());
+
+    const tx = await contract.contribute({ value: amountWei });
     await tx.wait();
     alert("Contribution successful!");
     loadContractInfo();
 }
+
 async function refund() {
     try {
         // Show the address and contribution
@@ -344,14 +353,6 @@ async function refund() {
         alert("Refund failed. Check console for details.");
     }
 }
-
-// async function mineBlockForTesting() {
-// await network.provider.send("evm_increaseTime", [300]); // 5 minutes
-// await network.provider.send("evm_mine");
-//   alert("Mined 1 block to check time");
-//   loadContractInfo();
-// }
-
 
 
 async function withdraw() {
@@ -392,4 +393,3 @@ document.getElementById("connectButton").onclick = connectMetaMask;
 document.getElementById("contributeButton").onclick = contribute;
 document.getElementById("refundButton").onclick = refund;
 document.getElementById("withdrawButton").onclick = withdraw;
-// document.getElementById("mineBlockButton").onclick = mineBlockForTesting;
